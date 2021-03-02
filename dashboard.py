@@ -18,6 +18,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = Dash(__name__, suppress_callback_exceptions=True)
 
+server = app.server
+
 teamPlayoffs =pd.read_csv('2019-2020_NBA_team_playoffs.csv')
 playoffStats = pd.read_excel('2019-2020_NBA_player_playoffs.xlsx', engine='openpyxl')
 regularseason = pd.read_excel('2019-2020_NBA_player_regular.xlsx', engine='openpyxl', header=1)
