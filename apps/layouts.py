@@ -1,6 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
+import dash_bootstrap_components as dbc
 
 def graph():
     graph = html.Div([
@@ -25,10 +26,10 @@ def table(columns):
 
 def content():
     CONTENT_STYLE = {
-    'margin-left': '20%',
-    'margin-right': '5%',
-    'top': 0,
-    'padding': '20px 10px'
+    "margin-left": "12rem",
+    "margin-right": "2rem",
+    "padding": "2rem 1rem",
+    'top': 0
     }
 
     content = html.Div([
@@ -44,13 +45,13 @@ def content():
 
 def sidebar(team, columns):
     SIDEBAR_STYLE = {
-    'position': 'fixed',
-    'top': 0,
-    'left': 0,
-    'bottom': 0,
-    'width': '20%',
-    'padding': '20px 10px',
-    'background-color': '#f8f9fa'
+    "position": "fixed",
+    "top": 0,
+    "left": 0,
+    "bottom": 0,
+    "width": "12rem",
+    "padding": "2rem 1rem",
+    "background-color": "#f8f9fa",
     }
 
     TEXT_STYLE = {
@@ -59,6 +60,15 @@ def sidebar(team, columns):
     }
     sidebar = html.Div(
     [
+        dbc.Nav(
+            [
+                dbc.NavLink("Home", href="/", active="exact"),
+                dbc.NavLink("Page 1", href="/playoffs", active="exact"),
+                dbc.NavLink("Page 2", href="/page-2", active="exact"),
+            ],
+            vertical=True,
+            pills=True,
+        ),
         html.H2('Parameters', style=TEXT_STYLE),
         html.Hr(),
         html.P("Select Team"),
