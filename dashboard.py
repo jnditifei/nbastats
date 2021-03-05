@@ -3,6 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
+from app import server
 from apps import index, playoffs
 
 # Since we're adding callbacks to elements that don't exist in the app.layout,
