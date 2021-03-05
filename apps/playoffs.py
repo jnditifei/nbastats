@@ -34,9 +34,10 @@ def render_content(tab):
 
 @app.callback(Output('graph', 'figure'),
     Input('yaxis-column', 'value'),
-    Input('select-team', 'value')
+    Input('select-team', 'value'),
+    Input('url', 'pathname')
     )
-def update_graph(yaxis_column_name, select_team):
+def update_graph(yaxis_column_name, select_team, pathname):
 
     dff=playoffStats.loc[playoffStats['TEAM']==select_team]
     players = dff['FULL NAME']
@@ -50,10 +51,13 @@ def update_graph(yaxis_column_name, select_team):
 
     bar = go.Bar(x=players, y=dff['PPGPointsPoints per game.'])
 
-    if yaxis_column_name is '':
+ 
+    line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])
+    """
+       if yaxis_column_name is '':
         raise PreventUpdate
     else:
-        line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])
+        """
         
     fig.add_trace(bar, row=2, col=1)
     fig.add_trace(pie, row=2, col=2)

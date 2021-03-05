@@ -14,11 +14,20 @@ def table(columns):
         dash_table.DataTable(
             id='datatable-paging',
             columns=[
-                {'id': c, 'name': c} for c in columns
+                {'id': c, 'name': c, "deletable": True, "selectable": True} for c in columns
             ],
+            editable=True,
+            filter_action="native",
+            sort_action="native",
+            sort_mode="multi",
+            column_selectable="single",
+            row_selectable="multi",
+            row_deletable=True,
+            selected_columns=[],
+            selected_rows=[],
+            page_action="native",
             page_current=0,
             page_size=PAGE_SIZE,
-            page_action='custom'
         )
         ])
     return table

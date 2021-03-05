@@ -22,13 +22,22 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
+@app.callback(
+    Output('url', 'pathname'),
+    [Input('map', 'clickData')]
+)
+def change_url(clickData):
+    if clickData:
+        print(str(clickData))
+        return '/' + str(clickData['points'][0]['hovertext'])
+
 # Update the index
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname == '/playoffs':
+    elif pathname == pathname:
         return playoffs.layout
     else:
         return '404'
