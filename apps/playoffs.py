@@ -17,7 +17,7 @@ columns = playoffStats.columns
 _graph = graph()
 _table = table(columns)
 _content = content()
-_sidebar= sidebar(team, columns)
+_sidebar= sidebar(columns)
 
 layout = html.Div([
     _sidebar,
@@ -32,12 +32,18 @@ def render_content(tab):
     elif tab == 'table':
         return _table
 
+@app.callback(Output('select-team', 'options'),
+    Output('select-team', 'value'),
+    Input('url', 'pathname')
+    )
+def populatedropdown(pathname):
+    return [{'label': i, 'value': i} for i in team], pathname.split('/')[1]
+
 @app.callback(Output('graph', 'figure'),
     Input('yaxis-column', 'value'),
     Input('select-team', 'value'),
-    Input('url', 'pathname')
     )
-def update_graph(yaxis_column_name, select_team, pathname):
+def update_graph(yaxis_column_name, select_team):
 
     dff=playoffStats.loc[playoffStats['TEAM']==select_team]
     players = dff['FULL NAME']

@@ -51,7 +51,7 @@ def content():
     )
     return content
 
-def sidebar(team, columns):
+def sidebar(columns):
     SIDEBAR_STYLE = {
     'position': 'fixed',
     'top': 0,
@@ -72,9 +72,7 @@ def sidebar(team, columns):
         html.Hr(),
         html.P("Select Team"),
         html.Div([dcc.Dropdown(
-                id='select-team',
-                options=[{'label': i, 'value': i} for i in team],
-                value='Okc',
+                id='select-team'
             )],
         style={'width': '90%', 'display': 'inline-block'}),
         html.P("X-axis Line"),

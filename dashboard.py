@@ -29,7 +29,6 @@ app.layout = html.Div([
 )
 def change_url(clickData):
     if clickData:
-        print(str(clickData))
         return '/' + str(clickData['points'][0]['hovertext'])
 
 # Update the index
