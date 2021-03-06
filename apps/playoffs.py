@@ -47,9 +47,9 @@ def update_graph(yaxis_column_name, select_team, pathname):
             subplot_titles=("{}".format(yaxis_column_name), "Full State", "Usage rate" ))
 
     pie = go.Pie(labels=dff['FULL NAME'],
-        values=dff['USG%Usage RateUsage rate, a.k.a., usage percentage is an estimate of the percentage of team plays used by a player while he was on the floor'])
+        values=dff['USG%'])
 
-    bar = go.Bar(x=players, y=dff['PPGPointsPoints per game.'])
+    bar = go.Bar(x=players, y=dff['PPG'])
 
  
     line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])

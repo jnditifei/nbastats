@@ -34,7 +34,7 @@ def table(columns):
 
 def content():
     CONTENT_STYLE = {
-    'margin-left': '20%',
+    'margin-left': '15%',
     'margin-right': '5%',
     'top': 0,
     'padding': '20px 10px'
@@ -57,7 +57,7 @@ def sidebar(team, columns):
     'top': 0,
     'left': 0,
     'bottom': 0,
-    'width': '20%',
+    'width': '15%',
     'padding': '20px 10px',
     'background-color': '#f8f9fa'
     }
@@ -82,7 +82,7 @@ def sidebar(team, columns):
                 dcc.Dropdown(
                     id='yaxis-column',
                     options=[{'label': i, 'value': i} for i in columns],
-                    value='PPGPointsPoints per game.'
+                    value='PPG'
                 )],
                 style={'width': '90%', 'display': 'inline-block'}),
     ],

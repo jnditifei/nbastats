@@ -1,6 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 from app import app
 from app import server
@@ -11,7 +12,6 @@ from apps import index, playoffs
 # doing something wrong.
 # In this case, we're adding the elements through a callback, so we can ignore
 # the exception.
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app.layout = html.Div([
     html.Nav(className = "nav nav-pills", children=[
