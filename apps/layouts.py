@@ -15,21 +15,37 @@ def table(columns):
         dash_table.DataTable(
             id='datatable-paging',
             columns=[
-                {'id': c, 'name': c} for c in columns
+                {'id': c, 'name': c, "deletable": True, "selectable": True} for c in columns
             ],
+            editable=True,
+            filter_action="native",
+            sort_action="native",
+            sort_mode="multi",
+            column_selectable="single",
+            row_selectable="multi",
+            row_deletable=True,
+            selected_columns=[],
+            selected_rows=[],
+            page_action="native",
             page_current=0,
             page_size=PAGE_SIZE,
-            page_action='custom'
         )
         ])
     return table
 
 def content():
     CONTENT_STYLE = {
+<<<<<<< HEAD
     "margin-left": "12rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
     'top': 0
+=======
+    'margin-left': '15%',
+    'margin-right': '5%',
+    'top': 0,
+    'padding': '20px 10px'
+>>>>>>> refs/remotes/origin/main
     }
 
     content = html.Div([
@@ -43,8 +59,9 @@ def content():
     )
     return content
 
-def sidebar(team, columns):
+def sidebar(columns):
     SIDEBAR_STYLE = {
+<<<<<<< HEAD
     "position": "fixed",
     "top": 0,
     "left": 0,
@@ -52,6 +69,15 @@ def sidebar(team, columns):
     "width": "12rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
+=======
+    'position': 'fixed',
+    'top': 0,
+    'left': 0,
+    'bottom': 0,
+    'width': '15%',
+    'padding': '20px 10px',
+    'background-color': '#f8f9fa'
+>>>>>>> refs/remotes/origin/main
     }
 
     TEXT_STYLE = {
@@ -73,9 +99,7 @@ def sidebar(team, columns):
         html.Hr(),
         html.P("Select Team"),
         html.Div([dcc.Dropdown(
-                id='select-team',
-                options=[{'label': i, 'value': i} for i in team],
-                value='Okc',
+                id='select-team'
             )],
         style={'width': '90%', 'display': 'inline-block'}),
         html.P("X-axis Line"),
@@ -83,7 +107,7 @@ def sidebar(team, columns):
                 dcc.Dropdown(
                     id='yaxis-column',
                     options=[{'label': i, 'value': i} for i in columns],
-                    value='PPGPointsPoints per game.'
+                    value='PPG'
                 )],
                 style={'width': '90%', 'display': 'inline-block'}),
     ],

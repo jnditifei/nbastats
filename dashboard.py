@@ -1,8 +1,10 @@
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 from app import app
+from app import server
 from apps import index, playoffs
 
 # Since we're adding callbacks to elements that don't exist in the app.layout,
@@ -10,7 +12,6 @@ from apps import index, playoffs
 # doing something wrong.
 # In this case, we're adding the elements through a callback, so we can ignore
 # the exception.
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app.layout = html.Div([
     html.Nav(className = "nav nav-pills", children=[
@@ -22,13 +23,21 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
+@app.callback(
+    Output('url', 'pathname'),
+    [Input('map', 'clickData')]
+)
+def change_url(clickData):
+    if clickData:
+        return '/' + str(clickData['points'][0]['hovertext'])
+
 # Update the index
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname == '/playoffs':
+    elif pathname == pathname:
         return playoffs.layout
     else:
         return '404'

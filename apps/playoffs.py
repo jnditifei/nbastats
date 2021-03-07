@@ -17,7 +17,7 @@ columns = playoffStats.columns
 _graph = graph()
 _table = table(columns)
 _content = content()
-_sidebar= sidebar(team, columns)
+_sidebar= sidebar(columns)
 
 layout = html.Div([
     _sidebar,
@@ -32,9 +32,16 @@ def render_content(tab):
     elif tab == 'table':
         return _table
 
+@app.callback(Output('select-team', 'options'),
+    Output('select-team', 'value'),
+    Input('url', 'pathname')
+    )
+def populatedropdown(pathname):
+    return [{'label': i, 'value': i} for i in team], pathname.split('/')[1]
+
 @app.callback(Output('graph', 'figure'),
     Input('yaxis-column', 'value'),
-    Input('select-team', 'value')
+    Input('select-team', 'value'),
     )
 def update_graph(yaxis_column_name, select_team):
 
@@ -46,14 +53,17 @@ def update_graph(yaxis_column_name, select_team):
             subplot_titles=("{}".format(yaxis_column_name), "Full State", "Usage rate" ))
 
     pie = go.Pie(labels=dff['FULL NAME'],
-        values=dff['USG%Usage RateUsage rate, a.k.a., usage percentage is an estimate of the percentage of team plays used by a player while he was on the floor'])
+        values=dff['USG%'])
 
-    bar = go.Bar(x=players, y=dff['PPGPointsPoints per game.'])
+    bar = go.Bar(x=players, y=dff['PPG'])
 
-    if yaxis_column_name is '':
+ 
+    line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])
+    """
+       if yaxis_column_name is '':
         raise PreventUpdate
     else:
-        line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])
+        """
         
     fig.add_trace(bar, row=2, col=1)
     fig.add_trace(pie, row=2, col=2)
