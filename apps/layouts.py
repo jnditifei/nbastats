@@ -35,17 +35,10 @@ def table(columns):
 
 def content():
     CONTENT_STYLE = {
-<<<<<<< HEAD
-    "margin-left": "12rem",
-    "margin-right": "2rem",
-    "padding": "2rem 1rem",
-    'top': 0
-=======
     'margin-left': '15%',
     'margin-right': '5%',
     'top': 0,
     'padding': '20px 10px'
->>>>>>> refs/remotes/origin/main
     }
 
     content = html.Div([
@@ -61,15 +54,6 @@ def content():
 
 def sidebar(columns):
     SIDEBAR_STYLE = {
-<<<<<<< HEAD
-    "position": "fixed",
-    "top": 0,
-    "left": 0,
-    "bottom": 0,
-    "width": "12rem",
-    "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
-=======
     'position': 'fixed',
     'top': 0,
     'left': 0,
@@ -77,7 +61,6 @@ def sidebar(columns):
     'width': '15%',
     'padding': '20px 10px',
     'background-color': '#f8f9fa'
->>>>>>> refs/remotes/origin/main
     }
 
     TEXT_STYLE = {
