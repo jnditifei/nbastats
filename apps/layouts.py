@@ -99,7 +99,7 @@ navbar = dbc.NavbarSimple(
         dbc.DropdownMenu(
             children=[
                 dbc.DropdownMenuItem("Regular", href="#"),
-                dbc.DropdownMenuItem('Player Stats', href='/playoffs'),
+                dbc.DropdownMenuItem('Playoffs', href='/playoffs'),
             ],
             nav=True,
             in_navbar=True,
