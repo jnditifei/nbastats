@@ -14,7 +14,6 @@ playoffStats = pd.read_excel('2019-2020_NBA_player_playoffs.xlsx', engine='openp
 team = playoffStats['TEAM'].unique()
 columns = playoffStats.columns
 
-_graph = graph()
 _table = table(columns)
 _content = content()
 _sidebar= sidebar(columns)
@@ -28,7 +27,7 @@ layout = html.Div([
               [Input('tabs', 'value')])
 def render_content(tab):
     if tab == 'graph':
-        return _graph
+        return graph
     elif tab == 'table':
         return _table
 

@@ -1,12 +1,11 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
+import dash_bootstrap_components as dbc
 
-def graph():
-    graph = html.Div([
-        dcc.Graph(id='graph')
-        ])
-    return graph
+graph = html.Div([
+    dcc.Graph(id='graph')
+    ])
 
 def table(columns):
     PAGE_SIZE = 10
@@ -35,9 +34,6 @@ def table(columns):
 def content():
     CONTENT_STYLE = {
     'margin-left': '15%',
-    'margin-right': '5%',
-    'top': 0,
-    'padding': '20px 10px'
     }
 
     content = html.Div([
@@ -75,6 +71,7 @@ def sidebar(columns):
                 id='select-team'
             )],
         style={'width': '90%', 'display': 'inline-block'}),
+
         html.P("X-axis Line"),
         html.Div([
                 dcc.Dropdown(
@@ -83,8 +80,32 @@ def sidebar(columns):
                     value='PPG'
                 )],
                 style={'width': '90%', 'display': 'inline-block'}),
+        html.P("Pie Value"),
+        html.Div([dcc.Dropdown(
+                id='value-pie'
+            )],
+        style={'width': '90%', 'display': 'inline-block'}),
     ],
     style=SIDEBAR_STYLE,
     )
 
     return sidebar
+
+
+navbar = dbc.NavbarSimple(
+       children=
+    [
+        dbc.NavItem(dbc.NavLink('Home', href='/')),
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem("Regular", href="#"),
+                dbc.DropdownMenuItem('Player Stats', href='/playoffs'),
+            ],
+            nav=True,
+            in_navbar=True,
+            label="Season",
+        ),
+    ],
+    color="grey",
+    style={'background-color': '#f8f9fa'}
+)

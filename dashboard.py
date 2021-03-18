@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 from app import app
 from app import server
 from apps import index, playoffs
+from apps.layouts import navbar
 
 # Since we're adding callbacks to elements that don't exist in the app.layout,
 # Dash will raise an exception to warn us that we might be
@@ -14,10 +15,7 @@ from apps import index, playoffs
 # the exception.
 
 app.layout = html.Div([
-    html.Nav(className = "nav nav-pills", children=[
-        html.A('Home', className="nav-item nav-link btn", href='/'),
-        html.A('Player Stats', className="nav-item nav-link active btn", href='/playoffs')
-        ]),
+    navbar,
     dcc.Location(id='url', refresh=False),
     html.Br(),
     html.Div(id='page-content')
@@ -37,7 +35,7 @@ def change_url(clickData):
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname == pathname:
+    elif pathname.split('/')[1] in index.short:
         return playoffs.layout
     else:
         return '404'

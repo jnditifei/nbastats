@@ -1,14 +1,18 @@
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 import dash_table
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
 from app import app
+from apps.utils import create_card
 
 teamPlayoffs =pd.read_csv('2019-2020_NBA_team_playoffs.csv')
+short = teamPlayoffs['short'].unique()
 
 maps= go.Figure()
 
@@ -42,12 +46,22 @@ maps.update_layout(
         zoom=3,
         style='light'
     ),
-    mapbox_style="dark"
-)
+    mapbox_style="dark", margin = dict(l = 0, r = 0, t = 0, b = 0,)
+    )
 
-maps.update_layout()
+first_row = dbc.Row([
+    dbc.Col(children=create_card("First-Title", "First-Description"),
+        id="first", width={"size": 3, "order": 1, "offset": 2}
+    ),
+    dbc.Col(
+        children=create_card("Second-title", "Second-Description"), 
+        width={"size": 3, "order": 1, "offset": 2}
+    ),
+                     ])
 
 layout = html.Div([
-    html.Div([dcc.Graph(id='map',figure=maps)
-        ]),
+    first_row,
+    dbc.Row(dbc.Col(dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}), style={"margin-top":"20px"}
+        ),
+    )
 ])
