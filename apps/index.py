@@ -26,7 +26,7 @@ maps.add_trace(go.Scattermapbox(
         hoverinfo="text",
         marker=go.scattermapbox.Marker(
             size=20,
-            color='rgb(138, 11, 11)',
+            color='#e83e8c',
             opacity=0.7
         )
     ))
@@ -46,7 +46,7 @@ maps.update_layout(
         zoom=3,
         style='light'
     ),
-    mapbox_style="dark", margin = dict(l = 0, r = 0, t = 0, b = 0,)
+    mapbox_style="light", margin = dict(l = 0, r = 0, t = 0, b = 0,)
     )
 
 first_row = dbc.Row([
@@ -57,11 +57,26 @@ first_row = dbc.Row([
         children=create_card("Second-title", "Second-Description"), 
         width={"size": 3, "order": 1, "offset": 2}
     ),
-                     ])
+                     ],
+                     style={"margin-bottom":"5px"})
+second_row = dbc.Row([
+        dbc.Col(children=dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}), style={"margin-top":"20px"},
+            width=6),
+        dbc.Col(children=[dash_table.DataTable(
+            id='DataTable-result',
+            data=teamPlayoffs.to_dict('records'),
+            columns=[{'id': c, 'name': c, 'format': {'specifier': '.2f'}} for c in teamPlayoffs.columns[:24]],
+            style_table={'overflowX': 'auto'},
+            )],
+        width=6,
+        )
+    ],
+    align="center",
+    justify="center")
 
-layout = html.Div([
+layout = dbc.Container([
     first_row,
-    dbc.Row(dbc.Col(dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}), style={"margin-top":"20px"}
-        ),
-    )
-])
+    second_row],
+    fluid=True
+)
+    

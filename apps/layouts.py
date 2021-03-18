@@ -60,7 +60,7 @@ def sidebar(columns):
 
     TEXT_STYLE = {
         'textAlign': 'center',
-        'color': '#191970'
+        'color': '#56cc9d',
     }
     sidebar = html.Div(
     [
@@ -98,14 +98,14 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink('Home', href='/')),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("Regular", href="#"),
-                dbc.DropdownMenuItem('Playoffs', href='/playoffs'),
+                dbc.DropdownMenuItem("Regular", href="#", style={"font-size":"small"}),
+                dbc.DropdownMenuItem('Playoffs', href='/playoffs', style={"font-size":"small"}),
             ],
             nav=True,
             in_navbar=True,
-            label="Season",
+            label="Season"
         ),
     ],
     color="grey",
-    style={'background-color': '#f8f9fa'}
+    style={'background-color': '#20c997', "font-size":"medium"}
 )
