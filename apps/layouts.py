@@ -64,6 +64,15 @@ def sidebar(columns):
     }
     sidebar = html.Div(
     [
+        dbc.Nav(
+            [
+                dbc.NavLink("Home", href="/", active="exact"),
+                dbc.NavLink("Page 1", href="/playoffs", active="exact"),
+                dbc.NavLink("Page 2", href="/page-2", active="exact"),
+            ],
+            vertical=True,
+            pills=True,
+        ),
         html.H2('Parameters', style=TEXT_STYLE),
         html.Hr(),
         html.P("Select Team"),
