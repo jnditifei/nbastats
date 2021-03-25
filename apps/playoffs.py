@@ -57,7 +57,12 @@ def update_graph(yaxis_column_name, select_team):
     bar = go.Bar(x=players, y=dff['PPG'])
 
  
-    line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)])
+    line = go.Scatter(x=players, y=dff['{}'.format(yaxis_column_name)], mode='markers',
+        marker=dict(
+            color='LightSkyBlue',
+            size=20
+        ),
+        )
     """
        if yaxis_column_name is '':
         raise PreventUpdate

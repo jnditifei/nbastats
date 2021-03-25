@@ -35,7 +35,7 @@ def change_url(clickData):
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname.split('/')[1] in index.short or pathname == '/playoffs':
+    elif pathname.split('/')[1] in index.short or pathname == '/team-stats':
         return playoffs.layout
     else:
         return '404'

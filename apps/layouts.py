@@ -71,7 +71,11 @@ def sidebar(columns):
                 id='select-team'
             )],
         style={'width': '90%', 'display': 'inline-block'}),
-
+        html.P("Select Season"),
+        html.Div([dcc.Dropdown(
+                id='select-season'
+            )],
+        style={'width': '90%', 'display': 'inline-block'}),
         html.P("X-axis Line"),
         html.Div([
                 dcc.Dropdown(
@@ -98,12 +102,12 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink('Home', href='/')),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("Regular", href="#", style={"font-size":"small"}),
-                dbc.DropdownMenuItem('Playoffs', href='/playoffs', style={"font-size":"small"}),
+                dbc.DropdownMenuItem("Players", href="#", style={"font-size":"small"}),
+                dbc.DropdownMenuItem('Teams', href='/team-stats', style={"font-size":"small"}),
             ],
             nav=True,
             in_navbar=True,
-            label="Season"
+            label="Statistics"
         ),
     ],
     sticky="top",
