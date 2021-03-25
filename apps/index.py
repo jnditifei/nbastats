@@ -14,6 +14,9 @@ from apps.utils import create_card
 teamPlayoffs =pd.read_csv('2019-2020_NBA_team_playoffs.csv')
 short = teamPlayoffs['short'].unique()
 
+years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2018,2019,2020]
+
+
 maps= go.Figure()
 
 access = ("pk.eyJ1Ijoiam5kaXRpZmVpIiwiYSI6ImNrbHVwN2o4NDA5NmgybnBsNzI3Z3c1dWYifQ.971IMEJSB-BBVl575_HH3w")
@@ -50,22 +53,49 @@ maps.update_layout(
     )
 
 first_row = dbc.Row([
-    dbc.Col(children=create_card("First-Title", "First-Description"),
-        id="first", width={"size": 3, "order": 1, "offset": 2}
-    ),
+    dbc.Col([
+        dbc.Card(dbc.CardBody(dcc.Dropdown(style={'width': '48%'}))
+            ),
+        dbc.Card(dbc.CardBody(dcc.RadioItems(options=[{'value':'regular', 'label': 'Regular'}, {'value':'playoffs', 'label':'Playoffs'}]))
+            ),
+        dbc.Card(dbc.CardBody(
+                dcc.Slider(
+                    id='slider-season',
+                    min=years[0],
+                    max=years[-1],
+                    value=years[-1],
+                    marks={str(year): str(year) for year in years},
+                    #marks = {"2010":"2010/2011", "2011":"2011/2012", "2012":"2012/2013", "2013":"2013/2014", "2014":"2014/2015", "2015":"2015/2016", "2016":"2016/2017","2017":"2017/2018", "2018":"2018/2019", "2019":"2019/2020"},
+                    step=None
+                    ),
+                ),
+    )],
+    width=4),
+
     dbc.Col(
-        children=create_card("Second-title", "Second-Description"), 
-        width={"size": 3, "order": 1, "offset": 2}
-    ),
+        dbc.CardDeck([
+            create_card("League Champion", "Los Angeles Lakers"),
+            create_card("Finals MVP", "Lebron James"), 
+            create_card("Playoffs Leader PTS", "Anthony Davis (582)"),
+            create_card("Playoffs Leader TRB", "Lebron James (184)"),
+            create_card("Playoffs Leader WS", "Anthony Davis (4.5)"),
                      ],
-                     style={"margin-bottom":"5px"})
+                     className='w-100',
+                     style={'margin-left':'2px'}),
+        width=8,
+        )],
+    style={"margin-bottom":"5px"})
+
 second_row = dbc.Row([
         dbc.Col(children=dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}), style={"margin-top":"20px"},
             width=6),
         dbc.Col(children=[dash_table.DataTable(
             id='DataTable-result',
-            data=teamPlayoffs.to_dict('records'),
-            columns=[{'id': c, 'name': c, 'format': {'specifier': '.2f'}} for c in teamPlayoffs.columns[:24]],
+            data=teamPlayoffs.round(decimals=3).to_dict('records'),
+            columns=[
+            {'id': c, 'name': c} for c in teamPlayoffs.columns[:24]
+            ],
+            style_as_list_view=True,
             style_table={'overflowX': 'auto'},
             )],
         width=6,

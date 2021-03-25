@@ -50,7 +50,7 @@ def content():
 def sidebar(columns):
     SIDEBAR_STYLE = {
     'position': 'fixed',
-    'top': 0,
+    'top': 50,
     'left': 0,
     'bottom': 0,
     'width': '15%',
@@ -106,6 +106,7 @@ navbar = dbc.NavbarSimple(
             label="Season"
         ),
     ],
+    sticky="top",
     color="grey",
     style={'background-color': '#20c997', "font-size":"medium"}
 )
