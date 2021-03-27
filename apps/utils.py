@@ -13,6 +13,7 @@ def create_card(title, content):
                 html.Br(),
                 ]
         ),
-        color="info", outline=True, style={"text-align": "center"}
+        className='shadow p-3 mb-5 bg-white rounded',
+        style={"text-align": "center"}
     )
     return(card)

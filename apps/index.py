@@ -54,11 +54,15 @@ maps.update_layout(
 
 first_row = dbc.Row([
     dbc.Col([
-        dbc.Card(dbc.CardBody(dcc.Dropdown(style={'width': '48%'}))
+        html.Div(dcc.Dropdown(style={'width': '48%'}),
+            className='w-35 p-3 h-25'
             ),
-        dbc.Card(dbc.CardBody(dcc.RadioItems(options=[{'value':'regular', 'label': 'Regular'}, {'value':'playoffs', 'label':'Playoffs'}]))
+        html.Div(
+            dcc.RadioItems(options=[{'value':'regular', 'label': 'Regular'}, {'value':'playoffs', 'label':'Playoffs'}],
+                className='w-35 p-3 h-25'
+                )
             ),
-        dbc.Card(dbc.CardBody(
+        html.Div(
                 dcc.Slider(
                     id='slider-season',
                     min=years[0],
@@ -68,8 +72,10 @@ first_row = dbc.Row([
                     #marks = {"2010":"2010/2011", "2011":"2011/2012", "2012":"2012/2013", "2013":"2013/2014", "2014":"2014/2015", "2015":"2015/2016", "2016":"2016/2017","2017":"2017/2018", "2018":"2018/2019", "2019":"2019/2020"},
                     step=None
                     ),
-                ),
+                className='w-35 p-3 h-25'
     )],
+    align='center',
+    className='shadow p-3 mb-5 bg-white rounded',
     width=4),
 
     dbc.Col(
@@ -87,7 +93,7 @@ first_row = dbc.Row([
     style={"margin-bottom":"5px"})
 
 second_row = dbc.Row([
-        dbc.Col(children=dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}), style={"margin-top":"20px"},
+        dbc.Col(dbc.Jumbotron(children=dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]})), style={"margin-top":"20px"},
             width=6),
         dbc.Col(children=[dash_table.DataTable(
             id='DataTable-result',
