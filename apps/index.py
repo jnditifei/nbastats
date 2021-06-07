@@ -11,8 +11,10 @@ import plotly.graph_objects as go
 from app import app
 from apps.utils import create_card
 
-teamPlayoffs =pd.read_csv('2019-2020_NBA_team_playoffs.csv')
-short = teamPlayoffs['short'].unique()
+teamsStats =pd.read_csv('2019-2020_NBA_team_playoffs.csv')
+playersStats = pd.read_excel('2019-2020_NBA_player_playoffs.xlsx', engine='openpyxl')
+
+short = teamsStats['short'].unique()
 
 years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2018,2019,2020]
 
@@ -22,10 +24,10 @@ maps= go.Figure()
 access = ("pk.eyJ1Ijoiam5kaXRpZmVpIiwiYSI6ImNrbHVwN2o4NDA5NmgybnBsNzI3Z3c1dWYifQ.971IMEJSB-BBVl575_HH3w")
 
 maps.add_trace(go.Scattermapbox(
-        lat=teamPlayoffs['lat'],
-        lon=teamPlayoffs['lon'],
+        lat=teamsStats['lat'],
+        lon=teamsStats['lon'],
         mode='markers',
-        hovertext=teamPlayoffs['short'],
+        hovertext=teamsStats['short'],
         hoverinfo="text",
         marker=go.scattermapbox.Marker(
             size=20,
@@ -90,29 +92,54 @@ first_row = dbc.Row([
                      style={'margin-left':'2px'}),
         width=8,
         )],
-    style={"margin-bottom":"5px"})
+    style={"margin-bottom":"5px", "margin-top":"5px"})
 
-second_row = dbc.Row([
-        dbc.Col(dbc.Jumbotron(children=dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]})), style={"margin-top":"20px"},
-            width=6),
-        dbc.Col(children=[dash_table.DataTable(
+second_row = dbc.Row(
+    dbc.Col(
+    dbc.CardDeck([
+        dbc.Card(
+                dcc.Graph(id='map',figure=maps, hoverData={'points': [{'hovertext': 'Lal'}]}
+                    ), className="shadow p-3 mb-5 bg-white rounded",
+            ),
+        dbc.Card(
+            dash_table.DataTable(
             id='DataTable-result',
-            data=teamPlayoffs.round(decimals=3).to_dict('records'),
+            data=teamsStats.round(decimals=3).to_dict('records'),
             columns=[
-            {'id': c, 'name': c} for c in teamPlayoffs.columns[:24]
+            {'id': c, 'name': c} for c in teamsStats.columns[:24]
             ],
             style_as_list_view=True,
             style_table={'overflowX': 'auto'},
-            )],
-        width=6,
-        )
-    ],
+            ), className="shadow p-3 mb-5 bg-white rounded"
+            )
+        
+    ])
+    ),
     align="center",
     justify="center")
+third_row = dbc.Row([
+    dbc.Col(width=4),
+    dbc.Col(
+            dbc.Card(dcc.Graph(id="players-graph", figure=go.Figure(
+                go.Scatter(y=playersStats["MPG"], x=playersStats["GP"], 
+                    mode='markers',
+                    marker_size=playersStats["PPG"],
+                    text=playersStats["FULL NAME"],
+                    marker_color=playersStats['FULL NAME'].index.tolist(),
+                    hovertemplate = "%{text}: <br>Game Played: %{x} </br>Minute Per Game: %{y} </br>Point Per Game: %{marker.size}"
+                    )
+                )
+                ), className="shadow p-3 mb-5 bg-white rounded"),
+            width=8
+            )]
+    )
 
 layout = dbc.Container([
     first_row,
-    second_row],
+    second_row,
+    third_row],
     fluid=True
 )
+
+
     

@@ -97,8 +97,7 @@ def sidebar(columns):
 
 
 navbar = dbc.NavbarSimple(
-       children=
-    [
+       children=[
         dbc.NavItem(dbc.NavLink('Home', href='/')),
         dbc.DropdownMenu(
             children=[
